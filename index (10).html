@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ff6b00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sensus 2026">
+    <title>Sensus Ekonomi 2026 - Desa Sukadamai</title>
+
+    <!-- Manifest PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Apple Touch Icon -->
+
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #e55d00;
+            --primary-light: #ff8533;
+            --bg: #f5f0eb;
+            --card: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #555555;
+            --border: #ddd0c8;
+            --success: #2e7d32;
+            --danger: #c62828;
+            --warning: #f9a825;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 22px 16px 18px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255,107,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: 0.5px; }
+        .header p { font-size: 0.82rem; opacity: 0.92; margin-top: 3px; }
+        .container { max-width: 600px; margin: 0 auto; padding: 14px; }
+        .warning-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid var(--primary);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 0.88rem;
+            color: #5d4037;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .warning-box strong { color: var(--primary-dark); font-size: 0.95rem; }
+        .warning-box ul { margin: 8px 0 0 18px; }
+        .warning-box li { margin: 4px 0; }
+        .card {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-group { margin-bottom: 16px; }
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        label .required { color: var(--danger); }
+        input[type="text"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            font-size: 1rem;
+            background: #fafafa;
+            transition: all 0.2s;
+            color: var(--text);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255,107,0,0.12);
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .radio-option, .checkbox-option { flex: 1; min-width: 90px; }
+        .radio-option input, .checkbox-option input { display: none; }
+        .radio-option label, .checkbox-option label {
+            display: block;
+            padding: 12px 14px;
+            background: #f5f0eb;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            margin-bottom: 0;
+        }
+        .radio-option input:checked + label, .checkbox-option input:checked + label {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 14px rgba(255,107,0,0.3);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 10px;
+            text-decoration: none;
+            touch-action: manipulation;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 18px rgba(255,107,0,0.3);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            box-shadow: 0 4px 18px rgba(46,125,50,0.3);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #e8e4e0;
+            color: #444;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .mode-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+        .mode-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .mode-card:active { transform: scale(0.97); }
+        .mode-card:hover, .mode-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 8px 30px rgba(255,107,0,0.15);
+            transform: translateY(-2px);
+        }
+        .mode-card .icon { font-size: 2.2rem; margin-bottom: 10px; }
+        .mode-card h3 { color: var(--primary-dark); margin-bottom: 5px; font-size: 1rem; }
+        .mode-card p { color: var(--text-light); font-size: 0.82rem; }
+        .hidden { display: none !important; }
+        .section { margin-bottom: 18px; }
+        .section-title {
+            background: linear-gradient(90deg, var(--primary-light), transparent);
+            color: var(--primary-dark);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+        .dynamic-field { animation: slideDown 0.3s ease; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .member-card {
+            background: #fff8f0;
+            border: 2px dashed var(--primary-light);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .member-card .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+        .calc-row {
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 10px;
+            align-items: end;
+        }
+        .calc-result {
+            background: #e8f5e9;
+            border: 2px solid var(--success);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--success);
+            text-align: center;
+            font-size: 1rem;
+        }
+        .note-box {
+            background: #fff3e0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 0.87rem;
+            color: #5d4037;
+            border-left: 4px solid var(--primary);
+        }
+        .note-box strong { color: var(--primary-dark); }
+        .saved-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+        .data-list { max-height: 350px; overflow-y: auto; }
+        .data-item {
+            background: #f5f0eb;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        .data-item-info { flex: 1; min-width: 0; }
+        .data-item-info .title { font-weight: 700; color: var(--text); font-size: 0.9rem; word-break: break-word; }
+        .data-item-info .subtitle { font-size: 0.78rem; color: var(--text-light); }
+        .data-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .data-item-actions button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .btn-send { background: var(--success); color: white; }
+        .btn-delete { background: var(--danger); color: white; }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .badge-orange { background: #fff3e0; color: var(--primary-dark); }
+        .badge-green { background: #e8f5e9; color: var(--success); }
+        .badge-blue { background: #e3f2fd; color: #1565c0; }
+        .input-group { display: flex; gap: 8px; }
+        .input-group input { flex: 1; }
+        .input-group select { width: 120px; min-width: 120px; }
+        .gps-btn {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            box-shadow: 0 4px 18px rgba(13,71,161,0.3);
+        }
+        .gps-display {
+            background: #e3f2fd;
+            border: 2px solid #1976d2;
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            word-break: break-all;
+            color: #0d47a1;
+            line-height: 1.8;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+        .step-dot.active { background: var(--primary); transform: scale(1.3); }
+        .step-dot.completed { background: var(--success); }
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        .toast.show { opacity: 1; }
+        .pwa-install {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+            display: none;
+        }
+        .pwa-install.show { display: block; animation: slideDown 0.4s ease; }
+        .pwa-install h3 { font-size: 1rem; margin-bottom: 8px; }
+        .pwa-install p { font-size: 0.82rem; opacity: 0.9; margin-bottom: 10px; }
+        .pwa-install .btn { margin-bottom: 0; background: white; color: #764ba2; }
+        .pwa-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+        .install-guide {
+            background: #e8f5e9;
+            border: 2px solid var(--success);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .install-guide.show { display: block; }
+        .install-guide h4 { color: var(--success); margin-bottom: 8px; }
+        .install-guide ol { margin-left: 18px; }
+        .install-guide li { margin: 4px 0; }
+        @media (max-width: 400px) {
+            .header h1 { font-size: 1.1rem; }
+            .btn { padding: 14px; font-size: 0.9rem; }
+            .calc-row { grid-template-columns: 1fr 100px; }
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+    <!-- Apple Splash Screens -->
+
+
+
+
+
+</head>
+<body>
+    <div class="header">
+        <h1>📊 SENSUS EKONOMI 2026</h1>
+        <p>Tim PCL Desa Sukadamai</p>
+    </div>
+
+    <div class="container">
+        <!-- PWA INSTALL BANNER -->
+        <div class="pwa-install" id="pwaBanner">
+            <h3>📱 Install Aplikasi</h3>
+            <p>Tambahkan ke layar utama agar bisa dibuka seperti aplikasi</p>
+            <button class="btn" onclick="installPWA()">⬇️ Install Sekarang</button>
+            <button class="btn btn-secondary" onclick="dismissPWA()" style="margin-top:8px;">Nanti Saja</button>
+        </div>
+
+        <!-- MANUAL INSTALL GUIDE -->
+        <div class="install-guide" id="installGuide">
+            <h4>📲 Cara Install Manual:</h4>
+            <ol>
+                <li>Buka menu <strong>⋮ (titik tiga)</strong> di pojok kanan atas browser</li>
+                <li>Pilih <strong>"Tambahkan ke Layar Utama"</strong> atau <strong>"Install Aplikasi"</strong></li>
+                <li>Klik <strong>"Tambah"</strong> atau <strong>"Install"</strong></li>
+                <li>Selesai! Aplikasi muncul di layar utama HP</li>
+            </ol>
+        </div>
+
+        <!-- WARNING BOX -->
+        <div class="warning-box">
+            <strong>⚠️ PERINGATAN PENTING:</strong>
+            <ul>
+                <li>Jangan lupa <strong>tagging lokasi GPS</strong> di setiap bangunan/usaha!</li>
+                <li>Foto <strong>Meter PLN</strong> (ID Meter harus terlihat jelas)</li>
+                <li>Foto <strong>Rumah tampak depan</strong></li>
+                <li>Foto <strong>Ruang tamu</strong></li>
+                <li>Foto <strong>Kartu Keluarga</strong> (wajib minta foto/copy KK)</li>
+            </ul>
+        </div>
+
+        <!-- SCREEN: HOME -->
+        <div id="screen-home">
+            <div class="card">
+                <div class="card-title">🎯 Pilih Mode Pendataan</div>
+                <div class="mode-grid">
+                    <div class="mode-card" onclick="selectMode('keluarga')">
+                        <div class="icon">🏠</div>
+                        <h3>Mode 1: Data Kuisioner Keluarga</h3>
+                        <p>Pendataan keluarga dengan data prelist atau assignment baru</p>
+                    </div>
+                    <div class="mode-card" onclick="selectMode('usaha')">
+                        <div class="icon">🏭</div>
+                        <h3>Mode 2: Bangunan Khusus Usaha</h3>
+                        <p>Pendataan bangunan yang hanya digunakan untuk usaha</p>
+                    </div>
+                    <div class="mode-card" onclick="selectMode('khusus')">
+                        <div class="icon">🏢</div>
+                        <h3>Mode 3: Bangunan Khusus</h3>
+                        <p>Rumah Kosong / Gudang / Sarang Walet / Lainnya</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="savedDataCard">
+                <div class="card-title">
+                    💾 Data Tersimpan
+                    <span class="saved-badge" id="savedCount">0</span>
+                </div>
+                <div id="savedDataList" class="data-list">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>Belum ada data tersimpan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📱 Status Aplikasi</div>
+                <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:8px;">
+                    <span id="pwaStatus">⏳ Memeriksa...</span>
+                </p>
+                <p style="font-size:0.8rem;color:#888;">
+                    Jika belum bisa install, gunakan menu browser → "Tambahkan ke Layar Utama"
+                </p>
+            </div>
+        </div>
+
+        <!-- SCREEN: SUB-MODE KELUARGA -->
+        <div id="screen-submode-keluarga" class="hidden">
+            <div class="card">
+                <div class="card-title">🏠 Data Kuisioner Keluarga</div>
+                <p style="margin-bottom:16px;color:var(--text-light);font-size:0.9rem;">Pilih sumber data:</p>
+                <button class="btn btn-primary" onclick="startKeluarga('prelist')">📋 Data dari Prelist</button>
+                <button class="btn btn-outline" onclick="startKeluarga('baru')">✨ Assignment Baru</button>
+                <button class="btn btn-secondary" onclick="goHome()">← Kembali</button>
+            </div>
+        </div>
+
+        <!-- SCREEN: FORM KELUARGA -->
+        <div id="screen-form-keluarga" class="hidden">
+            <div class="step-indicator" id="stepIndicator">
+                <div class="step-dot active"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+            </div>
+
+            <form id="formKeluarga" onsubmit="return false;">
+                <!-- STEP 1: IDENTITAS -->
+                <div id="step1" class="card">
+                    <div class="card-title">📋 Identitas Keluarga</div>
+
+                    <div class="note-box">
+                        <strong>⚠️ WAJIB:</strong> Minta foto/copy Kartu Keluarga dari responden!
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nomor Kartu Keluarga <span class="required">*</span></label>
+                        <input type="text" id="kk_no" placeholder="Contoh: 3201010101010001" required inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Kepala Keluarga <span class="required">*</span></label>
+                        <input type="text" id="kk_nama" placeholder="Nama lengkap kepala keluarga" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Urut Bangunan <span class="required">*</span></label>
+                        <input type="text" id="no_urut_bangunan" placeholder="Contoh: 001" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Urut Keluarga <span class="required">*</span></label>
+                        <input type="text" id="no_urut_keluarga" placeholder="Contoh: 001" required>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Lanjut →</button>
+                </div>
+
+                <!-- STEP 2: PEKERJAAN & PENGELUARAN -->
+                <div id="step2" class="card hidden">
+                    <div class="card-title">💼 Pekerjaan & Pengeluaran</div>
+
+                    <div class="section">
+                        <div class="section-title">👤 Kepala Keluarga</div>
+                        <div class="form-group">
+                            <label>Pekerjaan Kepala Keluarga</label>
+                            <input type="text" id="kk_pekerjaan" placeholder="Contoh: Petani, Buruh, PNS, dll">
+                        </div>
+                        <div class="form-group">
+                            <label>Gaji/Pendapatan per Bulan (Rp)</label>
+                            <input type="text" id="kk_gaji" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">👥 Anggota Keluarga Lain yang Bekerja</div>
+                        <div id="anggotaList"></div>
+                        <button type="button" class="btn btn-outline" onclick="tambahAnggota()">+ Tambah Anggota Bekerja</button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">💰 Pengeluaran Keluarga</div>
+                        <div class="form-group">
+                            <label>Pengeluaran Makanan 7 Hari Terakhir (Rp)</label>
+                            <input type="text" id="peng_makanan" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>Pengeluaran Non-Makanan 30 Hari Terakhir (Rp)</label>
+                            <input type="text" id="peng_nonmakanan" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>Pengeluaran Khusus Tahunan (Rp)</label>
+                            <input type="text" id="peng_tahunan" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>Pengeluaran Listrik per Bulan (Rp)</label>
+                            <input type="text" id="peng_listrik" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>ID Meter / ID PLN</label>
+                            <input type="text" id="id_pln" placeholder="Nomor meter listrik">
+                        </div>
+                        <div class="form-group">
+                            <label>Pengeluaran WiFi/Paket Data per Bulan (Rp)</label>
+                            <input type="text" id="peng_internet" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(1)">← Kembali</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Lanjut →</button>
+                </div>
+
+                <!-- STEP 3: ASET -->
+                <div id="step3" class="card hidden">
+                    <div class="card-title">🏠 Kepemilikan Aset</div>
+
+                    <div class="form-group">
+                        <label>Kepemilikan Rumah</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="rumah_milik" id="rm_milik" value="Milik" onchange="toggleRumahMilik()">
+                                <label for="rm_milik">🏠 Milik</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="rumah_milik" id="rm_sewa" value="Sewa" onchange="toggleRumahMilik()">
+                                <label for="rm_sewa">🔑 Sewa</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="rumah_milik" id="rm_bebas" value="Bebas Sewa" onchange="toggleRumahMilik()">
+                                <label for="rm_bebas">🎁 Bebas Sewa</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rumahDetail" class="hidden dynamic-field">
+                        <div class="form-group">
+                            <label>Nilai Rumah Saat Ini (Rp)</label>
+                            <input type="text" id="rumah_nilai" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>Surat Kepemilikan Rumah</label>
+                            <input type="text" id="rumah_surat" placeholder="Contoh: SHM, HGB, AJB, dll">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Sepeda Motor</label>
+                        <div class="input-group">
+                            <input type="number" id="jml_motor" placeholder="0" min="0" onchange="toggleMotor()">
+                        </div>
+                    </div>
+                    <div id="motorDetail" class="hidden dynamic-field">
+                        <div class="form-group">
+                            <label>Nilai Total Motor Saat Ini (Rp)</label>
+                            <input type="text" id="motor_nilai" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Mobil</label>
+                        <div class="input-group">
+                            <input type="number" id="jml_mobil" placeholder="0" min="0" onchange="toggleMobil()">
+                        </div>
+                    </div>
+                    <div id="mobilDetail" class="hidden dynamic-field">
+                        <div class="form-group">
+                            <label>Nilai Total Mobil Saat Ini (Rp)</label>
+                            <input type="text" id="mobil_nilai" placeholder="0" oninput="formatRupiah(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah AC</label>
+                        <input type="number" id="jml_ac" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah Kulkas</label>
+                        <input type="number" id="jml_kulkas" placeholder="0" min="0">
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(2)">← Kembali</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">Lanjut →</button>
+                </div>
+
+                <!-- STEP 4: USAHA & GPS -->
+                <div id="step4" class="card hidden">
+                    <div class="card-title">🏪 Usaha & Lokasi</div>
+
+                    <div class="form-group">
+                        <label>Apakah keluarga memiliki usaha?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="punya_usaha" id="pu_ya" value="Ya" onchange="toggleUsaha()">
+                                <label for="pu_ya">✅ Ya</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="punya_usaha" id="pu_tidak" value="Tidak" onchange="toggleUsaha()">
+                                <label for="pu_tidak">❌ Tidak</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="usahaForm" class="hidden">
+                        <div id="usahaFields"></div>
+                        <button type="button" class="btn btn-outline" onclick="tambahUsaha()">+ Tambah Usaha</button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">📍 Tagging Lokasi GPS</div>
+                        <div class="note-box">
+                            <strong>⚠️ WAJIB!</strong> Tekan tombol di bawah untuk mengambil koordinat lokasi.
+                        </div>
+                        <button type="button" class="btn gps-btn" onclick="getGPS('keluarga')">📍 Ambil Lokasi GPS</button>
+                        <div id="gpsDisplay_keluarga" class="gps-display hidden"></div>
+                        <input type="hidden" id="gps_lat_keluarga">
+                        <input type="hidden" id="gps_lon_keluarga">
+                        <input type="hidden" id="gps_url_keluarga">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catatan Tambahan</label>
+                        <textarea id="catatan_keluarga" placeholder="Catatan penting lainnya..."></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(3)">← Kembali</button>
+                    <button type="button" class="btn btn-success" onclick="saveData('keluarga')">💾 Simpan Data</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- SCREEN: FORM USAHA LANGSUNG -->
+        <div id="screen-form-usaha" class="hidden">
+            <div class="card">
+                <div class="card-title">🏭 Bangunan Khusus Usaha</div>
+                <form id="formUsahaLangsung" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Nomor Urut Bangunan <span class="required">*</span></label>
+                        <input type="text" id="ub_no_bangunan" placeholder="Contoh: 001" required>
+                    </div>
+                    <div id="usahaFieldsLangsung"></div>
+                    <button type="button" class="btn btn-outline" onclick="tambahUsahaLangsung()">+ Tambah Usaha</button>
+
+                    <div class="section">
+                        <div class="section-title">📍 Tagging Lokasi GPS</div>
+                        <button type="button" class="btn gps-btn" onclick="getGPS('usaha')">📍 Ambil Lokasi GPS</button>
+                        <div id="gpsDisplay_usaha" class="gps-display hidden"></div>
+                        <input type="hidden" id="gps_lat_usaha">
+                        <input type="hidden" id="gps_lon_usaha">
+                        <input type="hidden" id="gps_url_usaha">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catatan Tambahan</label>
+                        <textarea id="catatan_usaha" placeholder="Catatan penting lainnya..."></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="goHome()">← Kembali</button>
+                    <button type="button" class="btn btn-success" onclick="saveData('usaha')">💾 Simpan Data</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SCREEN: FORM BANGUNAN KHUSUS -->
+        <div id="screen-form-khusus" class="hidden">
+            <div class="card">
+                <div class="card-title">🏢 Bangunan Khusus</div>
+                <form id="formKhusus" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Nomor Urut Bangunan <span class="required">*</span></label>
+                        <input type="text" id="bk_no_bangunan" placeholder="Contoh: 001" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama/Jenis Bangunan <span class="required">*</span></label>
+                        <select id="bk_jenis" onchange="toggleKhususLain()">
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="Rumah Kosong">🏠 Rumah Kosong</option>
+                            <option value="Gudang">📦 Gudang</option>
+                            <option value="Sarang Walet">🐦 Sarang Walet</option>
+                            <option value="Lainnya">🔧 Lainnya</option>
+                        </select>
+                    </div>
+                    <div id="khususLain" class="hidden form-group dynamic-field">
+                        <label>Sebutkan Jenis Bangunan</label>
+                        <input type="text" id="bk_jenis_lain" placeholder="Contoh: Mushola, Pos Ronda, dll">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Bangunan (jika ada)</label>
+                        <input type="text" id="bk_nama" placeholder="Nama bangunan">
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">📍 Tagging Lokasi GPS</div>
+                        <button type="button" class="btn gps-btn" onclick="getGPS('khusus')">📍 Ambil Lokasi GPS</button>
+                        <div id="gpsDisplay_khusus" class="gps-display hidden"></div>
+                        <input type="hidden" id="gps_lat_khusus">
+                        <input type="hidden" id="gps_lon_khusus">
+                        <input type="hidden" id="gps_url_khusus">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catatan Tambahan</label>
+                        <textarea id="catatan_khusus" placeholder="Catatan penting lainnya..."></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="goHome()">← Kembali</button>
+                    <button type="button" class="btn btn-success" onclick="saveData('khusus')">💾 Simpan Data</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== STATE =====
+        let currentMode = '';
+        let currentStep = 1;
+        let anggotaCount = 0;
+        let usahaCount = 0;
+        let usahaLangsungCount = 0;
+        const STORAGE_KEY = 'sensus_sukadamai_2026';
+        const FORM_STATE_KEY = 'sensus_form_state';
+        const WA_NUMBER = '6285791111335';
+        let deferredPrompt = null;
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            restoreFormState();
+            setupPWA();
+        });
+
+        // ===== PWA SETUP =====
+        function setupPWA() {
+            const statusEl = document.getElementById('pwaStatus');
+
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                statusEl.innerHTML = '✅ Sudah terinstall sebagai aplikasi';
+                return;
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                statusEl.innerHTML = '⬇️ Bisa di-install! Tekan tombol Install di atas';
+                document.getElementById('pwaBanner').classList.add('show');
+            });
+
+            setTimeout(() => {
+                if (!deferredPrompt && statusEl.textContent.includes('Memeriksa')) {
+                    statusEl.innerHTML = 'ℹ️ Gunakan menu browser untuk install';
+                    document.getElementById('installGuide').classList.add('show');
+                }
+            }, 2000);
+
+            window.addEventListener('appinstalled', () => {
+                statusEl.innerHTML = '✅ Berhasil di-install!';
+                document.getElementById('pwaBanner').classList.remove('show');
+                document.getElementById('installGuide').classList.remove('show');
+                deferredPrompt = null;
+                showToast('🎉 Aplikasi berhasil di-install!');
+            });
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('✅ Menginstall aplikasi...');
+                    } else {
+                        showToast('❌ Install dibatalkan');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                showToast('Gunakan menu browser → Tambahkan ke Layar Utama');
+                document.getElementById('installGuide').classList.add('show');
+            }
+        }
+
+        function dismissPWA() {
+            document.getElementById('pwaBanner').classList.remove('show');
+        }
+
+        // ===== SERVICE WORKER REGISTRATION =====
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then((reg) => console.log('SW registered:', reg.scope))
+                .catch((err) => console.log('SW registration failed:', err));
+        }
+
+        // ===== NAVIGATION =====
+        function showScreen(id) {
+            document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById('screen-' + id).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            currentMode = '';
+            currentStep = 1;
+            showScreen('home');
+            loadSavedData();
+        }
+
+        function selectMode(mode) {
+            currentMode = mode;
+            if (mode === 'keluarga') {
+                showScreen('submode-keluarga');
+            } else if (mode === 'usaha') {
+                usahaLangsungCount = 0;
+                document.getElementById('usahaFieldsLangsung').innerHTML = '';
+                tambahUsahaLangsung();
+                showScreen('form-usaha');
+            } else if (mode === 'khusus') {
+                showScreen('form-khusus');
+            }
+        }
+
+        function startKeluarga(submode) {
+            anggotaCount = 0;
+            usahaCount = 0;
+            document.getElementById('anggotaList').innerHTML = '';
+            document.getElementById('usahaFields').innerHTML = '';
+            document.getElementById('formKeluarga').reset();
+            currentStep = 1;
+            updateStepIndicator();
+            document.querySelectorAll('#formKeluarga .card').forEach((el, i) => {
+                el.classList.toggle('hidden', i !== 0);
+            });
+            showScreen('form-keluarga');
+        }
+
+        function nextStep(step) {
+            if (!validateStep(currentStep)) return;
+            document.getElementById('step' + currentStep).classList.add('hidden');
+            document.getElementById('step' + step).classList.remove('hidden');
+            currentStep = step;
+            updateStepIndicator();
+            window.scrollTo(0, 0);
+            saveFormState();
+        }
+
+        function prevStep(step) {
+            document.getElementById('step' + currentStep).classList.add('hidden');
+            document.getElementById('step' + step).classList.remove('hidden');
+            currentStep = step;
+            updateStepIndicator();
+            window.scrollTo(0, 0);
+        }
+
+        function updateStepIndicator() {
+            const dots = document.querySelectorAll('#stepIndicator .step-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i + 1 < currentStep) dot.classList.add('completed');
+                else if (i + 1 === currentStep) dot.classList.add('active');
+            });
+        }
+
+        function validateStep(step) {
+            const container = document.getElementById('step' + step);
+            const required = container.querySelectorAll('[required]');
+            for (let el of required) {
+                if (!el.value.trim()) {
+                    showToast('⚠️ Mohon lengkapi semua field wajib!');
+                    el.focus();
+                    el.style.borderColor = '#c62828';
+                    setTimeout(() => el.style.borderColor = '', 2000);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // ===== DYNAMIC FIELDS =====
+        function toggleRumahMilik() {
+            const val = document.querySelector('input[name="rumah_milik"]:checked')?.value;
+            document.getElementById('rumahDetail').classList.toggle('hidden', val !== 'Milik');
+            saveFormState();
+        }
+
+        function toggleMotor() {
+            const val = parseInt(document.getElementById('jml_motor').value) || 0;
+            document.getElementById('motorDetail').classList.toggle('hidden', val === 0);
+            saveFormState();
+        }
+
+        function toggleMobil() {
+            const val = parseInt(document.getElementById('jml_mobil').value) || 0;
+            document.getElementById('mobilDetail').classList.toggle('hidden', val === 0);
+            saveFormState();
+        }
+
+        function toggleUsaha() {
+            const val = document.querySelector('input[name="punya_usaha"]:checked')?.value;
+            document.getElementById('usahaForm').classList.toggle('hidden', val !== 'Ya');
+            if (val === 'Ya' && usahaCount === 0) tambahUsaha();
+            saveFormState();
+        }
+
+        function toggleKhususLain() {
+            const val = document.getElementById('bk_jenis').value;
+            document.getElementById('khususLain').classList.toggle('hidden', val !== 'Lainnya');
+            saveFormState();
+        }
+
+        // ===== ANGGOTA KELUARGA =====
+        function tambahAnggota() {
+            anggotaCount++;
+            const div = document.createElement('div');
+            div.className = 'member-card';
+            div.id = 'anggota_' + anggotaCount;
+            div.innerHTML = `
+                <button type="button" class="remove-btn" onclick="hapusAnggota(${anggotaCount})">×</button>
+                <div class="form-group">
+                    <label>Nama Anggota</label>
+                    <input type="text" class="ag_nama" placeholder="Nama lengkap" oninput="saveFormState()">
+                </div>
+                <div class="form-group">
+                    <label>Pekerjaan</label>
+                    <input type="text" class="ag_pekerjaan" placeholder="Contoh: Buruh, Pedagang, dll" oninput="saveFormState()">
+                </div>
+                <div class="form-group">
+                    <label>Gaji/Pendapatan per Bulan (Rp)</label>
+                    <input type="text" class="ag_gaji" placeholder="0" oninput="formatRupiah(this); saveFormState()">
+                </div>
+            `;
+            document.getElementById('anggotaList').appendChild(div);
+            saveFormState();
+        }
+
+        function hapusAnggota(id) {
+            const el = document.getElementById('anggota_' + id);
+            if (el) el.remove();
+            saveFormState();
+        }
+
+        // ===== USAHA HTML TEMPLATE =====
+        function getUsahaHTML(prefix, id) {
+            return `
+                <div class="member-card" id="${prefix}_${id}">
+                    <button type="button" class="remove-btn" onclick="hapusUsaha('${prefix}', ${id})">×</button>
+                    <div class="form-group">
+                        <label>Nama Usaha</label>
+                        <input type="text" class="u_nama" placeholder="Nama usaha" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Tahun Usaha Berdiri</label>
+                        <input type="text" class="u_tahun" placeholder="Contoh: 2018" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis Usaha</label>
+                        <input type="text" class="u_jenis" placeholder="Contoh: Warung, Bengkel, dll" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Produk Utama</label>
+                        <input type="text" class="u_produk" placeholder="Produk/jasa utama" oninput="saveFormState()">
+                    </div>
+
+                    <div class="section-title">💰 Perhitungan Otomatis (1 Tahun)</div>
+
+                    <div class="form-group">
+                        <label>Nilai Biaya Produksi</label>
+                        <div class="calc-row">
+                            <input type="text" class="u_biaya_produksi" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
+                            <select class="u_biaya_produksi_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
+                                <option value="1">per Hari</option>
+                                <option value="7">per Minggu</option>
+                                <option value="30">per Bulan</option>
+                                <option value="365">per Tahun</option>
+                            </select>
+                        </div>
+                        <div class="calc-result">1 Tahun: <span class="u_biaya_produksi_hasil">Rp 0</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Biaya Operasional</label>
+                        <div class="calc-row">
+                            <input type="text" class="u_biaya_ops" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
+                            <select class="u_biaya_ops_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
+                                <option value="1">per Hari</option>
+                                <option value="7">per Minggu</option>
+                                <option value="30">per Bulan</option>
+                                <option value="365">per Tahun</option>
+                            </select>
+                        </div>
+                        <div class="calc-result">1 Tahun: <span class="u_biaya_ops_hasil">Rp 0</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nilai Barang yang Diproduksi/Modal Belanja</label>
+                        <div class="calc-row">
+                            <input type="text" class="u_modal" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
+                            <select class="u_modal_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
+                                <option value="1">per Hari</option>
+                                <option value="7">per Minggu</option>
+                                <option value="30">per Bulan</option>
+                                <option value="365">per Tahun</option>
+                            </select>
+                        </div>
+                        <div class="calc-result">1 Tahun: <span class="u_modal_hasil">Rp 0</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Omset Usaha Bruto</label>
+                        <div class="calc-row">
+                            <input type="text" class="u_omset" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
+                            <select class="u_omset_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
+                                <option value="1">per Hari</option>
+                                <option value="7">per Minggu</option>
+                                <option value="30">per Bulan</option>
+                                <option value="365">per Tahun</option>
+                            </select>
+                        </div>
+                        <div class="calc-result">1 Tahun: <span class="u_omset_hasil">Rp 0</span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apakah memiliki karyawan/anggota keluarga yang dibayar?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="u_karyawan_${prefix}_${id}" id="uk_${prefix}_${id}_ya" value="Ya" onchange="toggleKaryawan('${prefix}', ${id}); saveFormState()">
+                                <label for="uk_${prefix}_${id}_ya">✅ Ya</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="u_karyawan_${prefix}_${id}" id="uk_${prefix}_${id}_tidak" value="Tidak" onchange="toggleKaryawan('${prefix}', ${id}); saveFormState()">
+                                <label for="uk_${prefix}_${id}_tidak">❌ Tidak</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="karyawan_${prefix}_${id}" class="hidden dynamic-field">
+                        <div class="form-group">
+                            <label>Jumlah Karyawan</label>
+                            <div class="input-group">
+                                <input type="number" class="u_kar_jml" placeholder="Total" min="0" oninput="saveFormState()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Pria</label>
+                            <input type="number" class="u_kar_pria" placeholder="0" min="0" oninput="saveFormState()">
+                        </div>
+                        <div class="form-group">
+                            <label>Wanita</label>
+                            <input type="number" class="u_kar_wanita" placeholder="0" min="0" oninput="saveFormState()">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Gaji/Upah dalam 1 Tahun (Rp)</label>
+                            <div class="calc-row">
+                                <input type="text" class="u_kar_gaji" placeholder="0" oninput="formatRupiah(this); hitungGajiKaryawan('${prefix}', ${id}); saveFormState()">
+                                <select class="u_kar_gaji_periode" onchange="hitungGajiKaryawan('${prefix}', ${id}); saveFormState()">
+                                    <option value="1">per Hari</option>
+                                    <option value="7">per Minggu</option>
+                                    <option value="30">per Bulan</option>
+                                    <option value="365">per Tahun</option>
+                                </select>
+                            </div>
+                            <div class="calc-result">1 Tahun: <span class="u_kar_gaji_hasil">Rp 0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">👤 Penanggung Jawab/Pemilik</div>
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" class="u_pj_nama" placeholder="Nama penanggung jawab" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Umur</label>
+                        <input type="number" class="u_pj_umur" placeholder="0" min="0" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input type="text" class="u_pj_nik" placeholder="16 digit NIK" oninput="saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <select class="u_pj_jk" onchange="saveFormState()">
+                            <option value="">-- Pilih --</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Apakah memiliki NIB?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="u_nib_${prefix}_${id}" id="un_${prefix}_${id}_ya" value="Ya" onchange="toggleNIB('${prefix}', ${id}); saveFormState()">
+                                <label for="un_${prefix}_${id}_ya">✅ Ya</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="u_nib_${prefix}_${id}" id="un_${prefix}_${id}_tidak" value="Tidak" onchange="toggleNIB('${prefix}', ${id}); saveFormState()">
+                                <label for="un_${prefix}_${id}_tidak">❌ Tidak</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="nib_${prefix}_${id}" class="hidden form-group dynamic-field">
+                        <label>Nomor NIB</label>
+                        <input type="text" class="u_nib_no" placeholder="Nomor NIB" oninput="saveFormState()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat Usaha (jika beda dengan tempat tinggal)</label>
+                        <textarea class="u_alamat" placeholder="Alamat lengkap usaha..." oninput="saveFormState()"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Nilai Aset Tanah & Bangunan yang Digunakan (Rp)</label>
+                        <input type="text" class="u_aset_tanah" placeholder="0" oninput="formatRupiah(this); saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Nilai Aset Selain Tanah & Bangunan (Rp)</label>
+                        <input type="text" class="u_aset_lain" placeholder="0" oninput="formatRupiah(this); saveFormState()">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor HP</label>
+                        <input type="tel" class="u_hp" placeholder="08xxxxxxxxxx" oninput="saveFormState()">
+                    </div>
+                </div>
+            `;
+        }
+
+        function tambahUsaha() {
+            usahaCount++;
+            const div = document.createElement('div');
+            div.innerHTML = getUsahaHTML('usaha', usahaCount);
+            document.getElementById('usahaFields').appendChild(div.firstElementChild);
+            saveFormState();
+        }
+
+        function tambahUsahaLangsung() {
+            usahaLangsungCount++;
+            const div = document.createElement('div');
+            div.innerHTML = getUsahaHTML('usahaLangsung', usahaLangsungCount);
+            document.getElementById('usahaFieldsLangsung').appendChild(div.firstElementChild);
+            saveFormState();
+        }
+
+        function hapusUsaha(prefix, id) {
+            const el = document.getElementById(prefix + '_' + id);
+            if (el) el.remove();
+            saveFormState();
+        }
+
+        function toggleKaryawan(prefix, id) {
+            const val = document.querySelector(`input[name="u_karyawan_${prefix}_${id}"]:checked`)?.value;
+            document.getElementById('karyawan_' + prefix + '_' + id).classList.toggle('hidden', val !== 'Ya');
+            saveFormState();
+        }
+
+        function toggleNIB(prefix, id) {
+            const val = document.querySelector(`input[name="u_nib_${prefix}_${id}"]:checked`)?.value;
+            document.getElementById('nib_' + prefix + '_' + id).classList.toggle('hidden', val !== 'Ya');
+            saveFormState();
+        }
+
+        // ===== CALCULATIONS =====
+        function hitungUsaha(prefix, id) {
+            const card = document.getElementById(prefix + '_' + id);
+            const fields = ['biaya_produksi', 'biaya_ops', 'modal', 'omset'];
+            fields.forEach(f => {
+                const input = card.querySelector('.u_' + f);
+                const periode = card.querySelector('.u_' + f + '_periode');
+                const hasil = card.querySelector('.u_' + f + '_hasil');
+                if (input && periode && hasil) {
+                    const val = parseRupiah(input.value);
+                    const p = parseInt(periode.value) || 30;
+                    let total = 0;
+                    if (p === 1) total = val * 365;           // per Hari x 365 hari
+                    else if (p === 7) total = val * 52;        // per Minggu (52 minggu dalam 1 tahun)
+                    else if (p === 30) total = val * 12;       // per Bulan (12 bulan dalam 1 tahun)
+                    else if (p === 365) total = val;           // per Tahun
+                    hasil.textContent = formatRupiahStr(Math.round(total));
+                }
+            });
+        }
+
+        function hitungGajiKaryawan(prefix, id) {
+            const card = document.getElementById(prefix + '_' + id);
+            const input = card.querySelector('.u_kar_gaji');
+            const periode = card.querySelector('.u_kar_gaji_periode');
+            const hasil = card.querySelector('.u_kar_gaji_hasil');
+            const jmlKar = card.querySelector('.u_kar_jml');
+            if (input && periode && hasil) {
+                const val = parseRupiah(input.value);
+                const p = parseInt(periode.value) || 30;
+                const jumlahKaryawan = parseInt(jmlKar?.value) || 1;
+                let total = 0;
+                if (p === 1) total = val * jumlahKaryawan * 365;      // per Hari: nilai x jumlah karyawan x 365 hari
+                else if (p === 7) total = val * jumlahKaryawan * 52;   // per Minggu: nilai x jumlah karyawan x 52 minggu
+                else if (p === 30) total = val * jumlahKaryawan * 12; // per Bulan: nilai x jumlah karyawan x 12 bulan
+                else if (p === 365) total = val * jumlahKaryawan;      // per Tahun: nilai x jumlah karyawan
+                hasil.textContent = formatRupiahStr(Math.round(total));
+            }
+        }
+
+        // ===== FORMAT RUPIAH =====
+        function formatRupiah(el) {
+            let val = el.value.replace(/[^0-9]/g, '');
+            el.value = formatRupiahStr(parseInt(val) || 0);
+        }
+
+        function formatRupiahStr(num) {
+            return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function parseRupiah(str) {
+            return parseInt((str || '').replace(/[^0-9]/g, '')) || 0;
+        }
+
+        // ===== GPS =====
+        function getGPS(mode) {
+            if (!navigator.geolocation) {
+                showToast('❌ GPS tidak didukung di perangkat ini');
+                return;
+            }
+            showToast('📍 Mengambil lokasi...');
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(6);
+                    const lon = pos.coords.longitude.toFixed(6);
+                    const url = `https://maps.google.com/?q=${lat},${lon}`;
+                    document.getElementById('gps_lat_' + mode).value = lat;
+                    document.getElementById('gps_lon_' + mode).value = lon;
+                    document.getElementById('gps_url_' + mode).value = url;
+                    const display = document.getElementById('gpsDisplay_' + mode);
+                    display.innerHTML = `<strong>✅ Lokasi Tertag:</strong><br>Lat: ${lat}<br>Lon: ${lon}<br><a href="${url}" target="_blank" style="color:#1976d2;">📍 Buka di Maps</a>`;
+                    display.classList.remove('hidden');
+                    showToast('✅ Lokasi berhasil diambil!');
+                    saveFormState();
+                },
+                (err) => {
+                    showToast('❌ Gagal mengambil lokasi: ' + err.message);
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+        }
+
+        // ===== SAVE DATA =====
+        function saveData(mode) {
+            let data = {};
+            data.mode = mode;
+            data.timestamp = new Date().toLocaleString('id-ID');
+            data.id = Date.now();
+
+            if (mode === 'keluarga') {
+                if (!validateStep(currentStep)) return;
+                data.kk_no = document.getElementById('kk_no').value;
+                data.kk_nama = document.getElementById('kk_nama').value;
+                data.no_urut_bangunan = document.getElementById('no_urut_bangunan').value;
+                data.no_urut_keluarga = document.getElementById('no_urut_keluarga').value;
+                data.kk_pekerjaan = document.getElementById('kk_pekerjaan').value;
+                data.kk_gaji = document.getElementById('kk_gaji').value;
+                data.anggota = [];
+                document.querySelectorAll('#anggotaList .member-card').forEach(card => {
+                    data.anggota.push({
+                        nama: card.querySelector('.ag_nama')?.value || '',
+                        pekerjaan: card.querySelector('.ag_pekerjaan')?.value || '',
+                        gaji: card.querySelector('.ag_gaji')?.value || ''
+                    });
+                });
+                data.peng_makanan = document.getElementById('peng_makanan').value;
+                data.peng_nonmakanan = document.getElementById('peng_nonmakanan').value;
+                data.peng_tahunan = document.getElementById('peng_tahunan').value;
+                data.peng_listrik = document.getElementById('peng_listrik').value;
+                data.id_pln = document.getElementById('id_pln').value;
+                data.peng_internet = document.getElementById('peng_internet').value;
+                data.rumah_milik = document.querySelector('input[name="rumah_milik"]:checked')?.value || '';
+                data.rumah_nilai = document.getElementById('rumah_nilai').value;
+                data.rumah_surat = document.getElementById('rumah_surat').value;
+                data.jml_motor = document.getElementById('jml_motor').value;
+                data.motor_nilai = document.getElementById('motor_nilai').value;
+                data.jml_mobil = document.getElementById('jml_mobil').value;
+                data.mobil_nilai = document.getElementById('mobil_nilai').value;
+                data.jml_ac = document.getElementById('jml_ac').value;
+                data.jml_kulkas = document.getElementById('jml_kulkas').value;
+                data.punya_usaha = document.querySelector('input[name="punya_usaha"]:checked')?.value || '';
+                data.usaha = collectUsahaData('usaha');
+                data.gps_lat = document.getElementById('gps_lat_keluarga').value;
+                data.gps_lon = document.getElementById('gps_lon_keluarga').value;
+                data.gps_url = document.getElementById('gps_url_keluarga').value;
+                data.catatan = document.getElementById('catatan_keluarga').value;
+            } else if (mode === 'usaha') {
+                data.no_bangunan = document.getElementById('ub_no_bangunan').value;
+                data.usaha = collectUsahaData('usahaLangsung');
+                data.gps_lat = document.getElementById('gps_lat_usaha').value;
+                data.gps_lon = document.getElementById('gps_lon_usaha').value;
+                data.gps_url = document.getElementById('gps_url_usaha').value;
+                data.catatan = document.getElementById('catatan_usaha').value;
+            } else if (mode === 'khusus') {
+                data.no_bangunan = document.getElementById('bk_no_bangunan').value;
+                data.jenis = document.getElementById('bk_jenis').value;
+                data.jenis_lain = document.getElementById('bk_jenis_lain').value;
+                data.nama = document.getElementById('bk_nama').value;
+                data.gps_lat = document.getElementById('gps_lat_khusus').value;
+                data.gps_lon = document.getElementById('gps_lon_khusus').value;
+                data.gps_url = document.getElementById('gps_url_khusus').value;
+                data.catatan = document.getElementById('catatan_khusus').value;
+            }
+
+            let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            saved.push(data);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+            clearFormState();
+            showToast('✅ Data berhasil disimpan!');
+            goHome();
+        }
+
+        function collectUsahaData(prefix) {
+            const usahaList = [];
+            document.querySelectorAll(`[id^="${prefix}_"]`).forEach(card => {
+                const u = {};
+                u.nama = card.querySelector('.u_nama')?.value || '';
+                u.tahun = card.querySelector('.u_tahun')?.value || '';
+                u.jenis = card.querySelector('.u_jenis')?.value || '';
+                u.produk = card.querySelector('.u_produk')?.value || '';
+                u.biaya_produksi = card.querySelector('.u_biaya_produksi')?.value || '';
+                u.biaya_produksi_hasil = card.querySelector('.u_biaya_produksi_hasil')?.textContent || '';
+                u.biaya_ops = card.querySelector('.u_biaya_ops')?.value || '';
+                u.biaya_ops_hasil = card.querySelector('.u_biaya_ops_hasil')?.textContent || '';
+                u.modal = card.querySelector('.u_modal')?.value || '';
+                u.modal_hasil = card.querySelector('.u_modal_hasil')?.textContent || '';
+                u.omset = card.querySelector('.u_omset')?.value || '';
+                u.omset_hasil = card.querySelector('.u_omset_hasil')?.textContent || '';
+                u.punya_karyawan = card.querySelector('input[type="radio"]:checked')?.value || '';
+                u.kar_jml = card.querySelector('.u_kar_jml')?.value || '';
+                u.kar_pria = card.querySelector('.u_kar_pria')?.value || '';
+                u.kar_wanita = card.querySelector('.u_kar_wanita')?.value || '';
+                u.kar_gaji = card.querySelector('.u_kar_gaji')?.value || '';
+                u.kar_gaji_hasil = card.querySelector('.u_kar_gaji_hasil')?.textContent || '';
+                u.pj_nama = card.querySelector('.u_pj_nama')?.value || '';
+                u.pj_umur = card.querySelector('.u_pj_umur')?.value || '';
+                u.pj_nik = card.querySelector('.u_pj_nik')?.value || '';
+                u.pj_jk = card.querySelector('.u_pj_jk')?.value || '';
+                u.nib = card.querySelector('.u_nib_no')?.value || '';
+                u.alamat = card.querySelector('.u_alamat')?.value || '';
+                u.aset_tanah = card.querySelector('.u_aset_tanah')?.value || '';
+                u.aset_lain = card.querySelector('.u_aset_lain')?.value || '';
+                u.hp = card.querySelector('.u_hp')?.value || '';
+                usahaList.push(u);
+            });
+            return usahaList;
+        }
+
+        // ===== LOAD SAVED DATA =====
+        function loadSavedData() {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const count = saved.length;
+            document.getElementById('savedCount').textContent = count;
+            const list = document.getElementById('savedDataList');
+
+            if (count === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>Belum ada data tersimpan</p>
+                    </div>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            saved.forEach((item, idx) => {
+                let title = '', subtitle = '', badge = '';
+                if (item.mode === 'keluarga') {
+                    title = '🏠 ' + (item.kk_nama || 'Keluarga');
+                    subtitle = 'KK: ' + (item.kk_no || '-') + ' | No.Bang: ' + (item.no_urut_bangunan || '-');
+                    badge = '<span class="badge badge-orange">Keluarga</span>';
+                } else if (item.mode === 'usaha') {
+                    const u = item.usaha?.[0];
+                    title = '🏭 ' + (u?.nama || 'Usaha');
+                    subtitle = 'No.Bang: ' + (item.no_bangunan || '-');
+                    badge = '<span class="badge badge-green">Usaha</span>';
+                } else {
+                    title = '🏢 ' + (item.nama || item.jenis || 'Bangunan Khusus');
+                    subtitle = 'No.Bang: ' + (item.no_bangunan || '-');
+                    badge = '<span class="badge badge-blue">Khusus</span>';
+                }
+
+                const div = document.createElement('div');
+                div.className = 'data-item';
+                div.innerHTML = `
+                    <div class="data-item-info">
+                        <div class="title">${title} ${badge}</div>
+                        <div class="subtitle">${subtitle} | ${item.timestamp}</div>
+                    </div>
+                    <div class="data-item-actions">
+                        <button class="btn-send" onclick="sendToWA(${idx})">📤</button>
+                        <button class="btn-delete" onclick="deleteData(${idx})">🗑️</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function deleteData(idx) {
+            if (!confirm('Yakin ingin menghapus data ini?')) return;
+            let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            saved.splice(idx, 1);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+            loadSavedData();
+            showToast('🗑️ Data dihapus');
+        }
+
+        // ===== SEND TO WHATSAPP =====
+        function sendToWA(idx) {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const item = saved[idx];
+            if (!item) return;
+
+            let msg = '';
+            msg += '═══════════════════════\n';
+            msg += '📊 *SENSUS EKONOMI 2026*\n';
+            msg += '🏘️ *DESA SUKADAMAI*\n';
+            msg += '═══════════════════════\n\n';
+
+            if (item.mode === 'keluarga') {
+                msg += '🏠 *MODE: DATA KELUARGA*\n';
+                msg += '─────────────────────\n';
+                msg += `📋 No.KK: ${item.kk_no || '-'}\n`;
+                msg += `👤 Kepala Keluarga: ${item.kk_nama || '-'}\n`;
+                msg += `🏠 No.Urut Bangunan: ${item.no_urut_bangunan || '-'}\n`;
+                msg += `👪 No.Urut Keluarga: ${item.no_urut_keluarga || '-'}\n`;
+                msg += `💼 Pekerjaan KK: ${item.kk_pekerjaan || '-'}\n`;
+                msg += `💰 Gaji KK: ${item.kk_gaji || '-'}\n\n`;
+
+                if (item.anggota && item.anggota.length > 0) {
+                    msg += '👥 *ANGGOTA KELUARGA BEKERJA:*\n';
+                    item.anggota.forEach((a, i) => {
+                        msg += `${i+1}. ${a.nama} - ${a.pekerjaan} (${a.gaji})\n`;
+                    });
+                    msg += '\n';
+                }
+
+                msg += '💰 *PENGELUARAN KELUARGA:*\n';
+                msg += `🍚 Makanan (7 hari): ${item.peng_makanan || '-'}\n`;
+                msg += `📦 Non-Makanan (30 hari): ${item.peng_nonmakanan || '-'}\n`;
+                msg += `🎁 Khusus Tahunan: ${item.peng_tahunan || '-'}\n`;
+                msg += `⚡ Listrik/Bulan: ${item.peng_listrik || '-'}\n`;
+                msg += `🔌 ID PLN: ${item.id_pln || '-'}\n`;
+                msg += `📶 WiFi/Data/Bulan: ${item.peng_internet || '-'}\n\n`;
+
+                msg += '🏠 *ASET RUMAH:*\n';
+                msg += `Status: ${item.rumah_milik || '-'}\n`;
+                if (item.rumah_milik === 'Milik') {
+                    msg += `Nilai Rumah: ${item.rumah_nilai || '-'}\n`;
+                    msg += `Surat: ${item.rumah_surat || '-'}\n`;
+                }
+                msg += `🛵 Motor: ${item.jml_motor || '0'} unit (${item.motor_nilai || '-'} )\n`;
+                msg += `🚗 Mobil: ${item.jml_mobil || '0'} unit (${item.mobil_nilai || '-'} )\n`;
+                msg += `❄️ AC: ${item.jml_ac || '0'} unit\n`;
+                msg += `🧊 Kulkas: ${item.jml_kulkas || '0'} unit\n\n`;
+
+                msg += `🏪 Punya Usaha: ${item.punya_usaha || '-'}\n`;
+                if (item.punya_usaha === 'Ya' && item.usaha) {
+                    item.usaha.forEach((u, i) => {
+                        msg += `\n📌 *USAHA ${i+1}:*\n`;
+                        msg += formatUsaha(u);
+                    });
+                }
+            } else if (item.mode === 'usaha') {
+                msg += '🏭 *MODE: BANGUNAN KHUSUS USAHA*\n';
+                msg += '─────────────────────\n';
+                msg += `🏠 No.Urut Bangunan: ${item.no_bangunan || '-'}\n\n`;
+                if (item.usaha) {
+                    item.usaha.forEach((u, i) => {
+                        msg += `📌 *USAHA ${i+1}:*\n`;
+                        msg += formatUsaha(u);
+                    });
+                }
+            } else if (item.mode === 'khusus') {
+                msg += '🏢 *MODE: BANGUNAN KHUSUS*\n';
+                msg += '─────────────────────\n';
+                msg += `🏠 No.Urut Bangunan: ${item.no_bangunan || '-'}\n`;
+                msg += `Jenis: ${item.jenis || '-'}\n`;
+                if (item.jenis === 'Lainnya') msg += `Lainnya: ${item.jenis_lain || '-'}\n`;
+                msg += `Nama: ${item.nama || '-'}\n`;
+            }
+
+            msg += '\n📍 *LOKASI GPS:*\n';
+            msg += `Lat: ${item.gps_lat || '-'}\n`;
+            msg += `Lon: ${item.gps_lon || '-'}\n`;
+            if (item.gps_url) msg += `🗺️ Maps: ${item.gps_url}\n`;
+
+            if (item.catatan) msg += `\n📝 Catatan: ${item.catatan}\n`;
+            msg += `\n⏰ ${item.timestamp}`;
+
+            const waUrl = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(msg);
+            window.open(waUrl, '_blank');
+
+            setTimeout(() => {
+                let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                saved.splice(idx, 1);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+                loadSavedData();
+                showToast('✅ Data terkirim & dihapus dari daftar');
+            }, 3000);
+        }
+
+        function formatUsaha(u) {
+            let s = '';
+            s += `Nama: ${u.nama || '-'}\n`;
+            s += `Berdiri: ${u.tahun || '-'}\n`;
+            s += `Jenis: ${u.jenis || '-'}\n`;
+            s += `Produk: ${u.produk || '-'}\n`;
+            s += `💰 Biaya Produksi: ${u.biaya_produksi || '-'} (${u.biaya_produksi_hasil || '-'} )\n`;
+            s += `💰 Biaya Operasional: ${u.biaya_ops || '-'} (${u.biaya_ops_hasil || '-'} )\n`;
+            s += `💰 Modal Belanja: ${u.modal || '-'} (${u.modal_hasil || '-'} )\n`;
+            s += `💰 Omset Bruto: ${u.omset || '-'} (${u.omset_hasil || '-'} )\n`;
+            s += `👥 Karyawan: ${u.punya_karyawan || '-'}\n`;
+            if (u.punya_karyawan === 'Ya') {
+                s += `  Total: ${u.kar_jml || '-'} (Pria: ${u.kar_pria || '-'}, Wanita: ${u.kar_wanita || '-'})\n`;
+                s += `  Gaji/Thn: ${u.kar_gaji || '-'} (${u.kar_gaji_hasil || '-'} )\n`;
+            }
+            s += `👤 PJ: ${u.pj_nama || '-'} (${u.pj_umur || '-'} th, ${u.pj_jk || '-'})\n`;
+            s += `🆔 NIK PJ: ${u.pj_nik || '-'}\n`;
+            s += `📋 NIB: ${u.nib || 'Tidak'}\n`;
+            s += `📍 Alamat: ${u.alamat || '-'}\n`;
+            s += `🏠 Aset Tanah: ${u.aset_tanah || '-'}\n`;
+            s += `🏭 Aset Lain: ${u.aset_lain || '-'}\n`;
+            s += `📱 HP: ${u.hp || '-'}\n`;
+            return s;
+        }
+
+        // ===== FORM STATE (Auto-save) =====
+        function saveFormState() {
+            const state = {
+                currentMode: currentMode,
+                currentStep: currentStep,
+                anggotaCount: anggotaCount,
+                usahaCount: usahaCount,
+                usahaLangsungCount: usahaLangsungCount,
+                kk_no: document.getElementById('kk_no')?.value || '',
+                kk_nama: document.getElementById('kk_nama')?.value || '',
+                no_urut_bangunan: document.getElementById('no_urut_bangunan')?.value || '',
+                no_urut_keluarga: document.getElementById('no_urut_keluarga')?.value || '',
+                kk_pekerjaan: document.getElementById('kk_pekerjaan')?.value || '',
+                kk_gaji: document.getElementById('kk_gaji')?.value || '',
+                peng_makanan: document.getElementById('peng_makanan')?.value || '',
+                peng_nonmakanan: document.getElementById('peng_nonmakanan')?.value || '',
+                peng_tahunan: document.getElementById('peng_tahunan')?.value || '',
+                peng_listrik: document.getElementById('peng_listrik')?.value || '',
+                id_pln: document.getElementById('id_pln')?.value || '',
+                peng_internet: document.getElementById('peng_internet')?.value || '',
+                rumah_nilai: document.getElementById('rumah_nilai')?.value || '',
+                rumah_surat: document.getElementById('rumah_surat')?.value || '',
+                jml_motor: document.getElementById('jml_motor')?.value || '',
+                motor_nilai: document.getElementById('motor_nilai')?.value || '',
+                jml_mobil: document.getElementById('jml_mobil')?.value || '',
+                mobil_nilai: document.getElementById('mobil_nilai')?.value || '',
+                jml_ac: document.getElementById('jml_ac')?.value || '',
+                jml_kulkas: document.getElementById('jml_kulkas')?.value || '',
+                catatan_keluarga: document.getElementById('catatan_keluarga')?.value || '',
+                catatan_usaha: document.getElementById('catatan_usaha')?.value || '',
+                catatan_khusus: document.getElementById('catatan_khusus')?.value || '',
+                ub_no_bangunan: document.getElementById('ub_no_bangunan')?.value || '',
+                bk_no_bangunan: document.getElementById('bk_no_bangunan')?.value || '',
+                bk_jenis: document.getElementById('bk_jenis')?.value || '',
+                bk_jenis_lain: document.getElementById('bk_jenis_lain')?.value || '',
+                bk_nama: document.getElementById('bk_nama')?.value || '',
+                rumah_milik: document.querySelector('input[name="rumah_milik"]:checked')?.value || '',
+                punya_usaha: document.querySelector('input[name="punya_usaha"]:checked')?.value || '',
+                gps_lat_keluarga: document.getElementById('gps_lat_keluarga')?.value || '',
+                gps_lon_keluarga: document.getElementById('gps_lon_keluarga')?.value || '',
+                gps_url_keluarga: document.getElementById('gps_url_keluarga')?.value || '',
+                gps_lat_usaha: document.getElementById('gps_lat_usaha')?.value || '',
+                gps_lon_usaha: document.getElementById('gps_lon_usaha')?.value || '',
+                gps_url_usaha: document.getElementById('gps_url_usaha')?.value || '',
+                gps_lat_khusus: document.getElementById('gps_lat_khusus')?.value || '',
+                gps_lon_khusus: document.getElementById('gps_lon_khusus')?.value || '',
+                gps_url_khusus: document.getElementById('gps_url_khusus')?.value || ''
+            };
+            localStorage.setItem(FORM_STATE_KEY, JSON.stringify(state));
+        }
+
+        function restoreFormState() {
+            try {
+                const state = JSON.parse(localStorage.getItem(FORM_STATE_KEY) || '{}');
+                if (!state.currentMode) return;
+                if (state.kk_no) document.getElementById('kk_no').value = state.kk_no;
+                if (state.kk_nama) document.getElementById('kk_nama').value = state.kk_nama;
+                if (state.no_urut_bangunan) document.getElementById('no_urut_bangunan').value = state.no_urut_bangunan;
+                if (state.no_urut_keluarga) document.getElementById('no_urut_keluarga').value = state.no_urut_keluarga;
+                if (state.kk_pekerjaan) document.getElementById('kk_pekerjaan').value = state.kk_pekerjaan;
+                if (state.kk_gaji) document.getElementById('kk_gaji').value = state.kk_gaji;
+                if (state.peng_makanan) document.getElementById('peng_makanan').value = state.peng_makanan;
+                if (state.peng_nonmakanan) document.getElementById('peng_nonmakanan').value = state.peng_nonmakanan;
+                if (state.peng_tahunan) document.getElementById('peng_tahunan').value = state.peng_tahunan;
+                if (state.peng_listrik) document.getElementById('peng_listrik').value = state.peng_listrik;
+                if (state.id_pln) document.getElementById('id_pln').value = state.id_pln;
+                if (state.peng_internet) document.getElementById('peng_internet').value = state.peng_internet;
+                if (state.rumah_nilai) document.getElementById('rumah_nilai').value = state.rumah_nilai;
+                if (state.rumah_surat) document.getElementById('rumah_surat').value = state.rumah_surat;
+                if (state.jml_motor) document.getElementById('jml_motor').value = state.jml_motor;
+                if (state.motor_nilai) document.getElementById('motor_nilai').value = state.motor_nilai;
+                if (state.jml_mobil) document.getElementById('jml_mobil').value = state.jml_mobil;
+                if (state.mobil_nilai) document.getElementById('mobil_nilai').value = state.mobil_nilai;
+                if (state.jml_ac) document.getElementById('jml_ac').value = state.jml_ac;
+                if (state.jml_kulkas) document.getElementById('jml_kulkas').value = state.jml_kulkas;
+                if (state.catatan_keluarga) document.getElementById('catatan_keluarga').value = state.catatan_keluarga;
+                if (state.catatan_usaha) document.getElementById('catatan_usaha').value = state.catatan_usaha;
+                if (state.catatan_khusus) document.getElementById('catatan_khusus').value = state.catatan_khusus;
+                if (state.ub_no_bangunan) document.getElementById('ub_no_bangunan').value = state.ub_no_bangunan;
+                if (state.bk_no_bangunan) document.getElementById('bk_no_bangunan').value = state.bk_no_bangunan;
+                if (state.bk_jenis) document.getElementById('bk_jenis').value = state.bk_jenis;
+                if (state.bk_jenis_lain) document.getElementById('bk_jenis_lain').value = state.bk_jenis_lain;
+                if (state.bk_nama) document.getElementById('bk_nama').value = state.bk_nama;
+                if (state.rumah_milik) {
+                    const r = document.querySelector(`input[name="rumah_milik"][value="${state.rumah_milik}"]`);
+                    if (r) { r.checked = true; toggleRumahMilik(); }
+                }
+                if (state.punya_usaha) {
+                    const r = document.querySelector(`input[name="punya_usaha"][value="${state.punya_usaha}"]`);
+                    if (r) { r.checked = true; toggleUsaha(); }
+                }
+                if (state.gps_lat_keluarga && state.gps_lon_keluarga) {
+                    document.getElementById('gps_lat_keluarga').value = state.gps_lat_keluarga;
+                    document.getElementById('gps_lon_keluarga').value = state.gps_lon_keluarga;
+                    document.getElementById('gps_url_keluarga').value = state.gps_url_keluarga;
+                    const d = document.getElementById('gpsDisplay_keluarga');
+                    d.innerHTML = `<strong>✅ Lokasi Tertag:</strong><br>Lat: ${state.gps_lat_keluarga}<br>Lon: ${state.gps_lon_keluarga}<br><a href="${state.gps_url_keluarga}" target="_blank" style="color:#1976d2;">📍 Buka di Maps</a>`;
+                    d.classList.remove('hidden');
+                }
+                if (state.gps_lat_usaha && state.gps_lon_usaha) {
+                    document.getElementById('gps_lat_usaha').value = state.gps_lat_usaha;
+                    document.getElementById('gps_lon_usaha').value = state.gps_lon_usaha;
+                    document.getElementById('gps_url_usaha').value = state.gps_url_usaha;
+                    const d = document.getElementById('gpsDisplay_usaha');
+                    d.innerHTML = `<strong>✅ Lokasi Tertag:</strong><br>Lat: ${state.gps_lat_usaha}<br>Lon: ${state.gps_lon_usaha}<br><a href="${state.gps_url_usaha}" target="_blank" style="color:#1976d2;">📍 Buka di Maps</a>`;
+                    d.classList.remove('hidden');
+                }
+                if (state.gps_lat_khusus && state.gps_lon_khusus) {
+                    document.getElementById('gps_lat_khusus').value = state.gps_lat_khusus;
+                    document.getElementById('gps_lon_khusus').value = state.gps_lon_khusus;
+                    document.getElementById('gps_url_khusus').value = state.gps_url_khusus;
+                    const d = document.getElementById('gpsDisplay_khusus');
+                    d.innerHTML = `<strong>✅ Lokasi Tertag:</strong><br>Lat: ${state.gps_lat_khusus}<br>Lon: ${state.gps_lon_khusus}<br><a href="${state.gps_url_khusus}" target="_blank" style="color:#1976d2;">📍 Buka di Maps</a>`;
+                    d.classList.remove('hidden');
+                }
+                toggleMotor(); toggleMobil(); toggleKhususLain();
+            } catch(e) { console.log('Restore state error', e); }
+        }
+
+        function clearFormState() {
+            localStorage.removeItem(FORM_STATE_KEY);
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
