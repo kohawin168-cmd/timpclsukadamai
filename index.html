@@ -434,6 +434,7 @@
 
 
 
+<base target="_blank">
 </head>
 <body>
     <div class="header">
@@ -1073,10 +1074,11 @@
                         <input type="text" class="u_produk" placeholder="Produk/jasa utama" oninput="saveFormState()">
                     </div>
 
-                    <div class="section-title">💰 Perhitungan Otomatis (1 Tahun)</div>
+                    <div class="section-title">💰 Nilai Usaha - Perhitungan Otomatis (1 Tahun)</div>
 
+                    <!-- 26.b Biaya Produksi -->
                     <div class="form-group">
-                        <label>Nilai Biaya Produksi</label>
+                        <label><strong>26.b</strong> Biaya Produksi (Jika memproduksi barang dari bahan mentah ke bahan masak) setahun terakhir?</label>
                         <div class="calc-row">
                             <input type="text" class="u_biaya_produksi" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
                             <select class="u_biaya_produksi_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
@@ -1089,8 +1091,35 @@
                         <div class="calc-result">1 Tahun: <span class="u_biaya_produksi_hasil">Rp 0</span></div>
                     </div>
 
+                    <!-- 26.c Biaya Pembelian Barang (Modal Awal + Pembelian) -->
                     <div class="form-group">
-                        <label>Biaya Operasional</label>
+                        <label><strong>26.c</strong> Biaya Pembelian Barang yang Terjual? (Modal awal + Pembelian barang selama setahun berjalan)</label>
+                        <div class="note-box" style="margin-bottom:10px;">Masukkan Modal Awal dan Pembelian Barang selama setahun</div>
+                        <div class="form-group">
+                            <label style="font-size:0.82rem;color:var(--text-light);">Modal Awal (Rp)</label>
+                            <input type="text" class="u_modal_awal" placeholder="0" oninput="formatRupiah(this); hitungPembelianBarang('${prefix}', ${id}); saveFormState()">
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size:0.82rem;color:var(--text-light);">Pembelian Barang Selama Setahun</label>
+                            <div class="calc-row">
+                                <input type="text" class="u_pembelian_barang" placeholder="0" oninput="formatRupiah(this); hitungPembelianBarang('${prefix}', ${id}); saveFormState()">
+                                <select class="u_pembelian_barang_periode" onchange="hitungPembelianBarang('${prefix}', ${id}); saveFormState()">
+                                    <option value="1">per Hari</option>
+                                    <option value="7">per Minggu</option>
+                                    <option value="30">per Bulan</option>
+                                    <option value="365">per Tahun</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-result">Total Pembelian Barang Setahun: <span class="u_pembelian_barang_hasil">Rp 0</span></div>
+                        <div class="calc-result" style="background:#fff3e0;border-color:var(--primary);color:var(--primary-dark);">
+                            <strong>Total 26.c (Modal Awal + Pembelian): <span class="u_total_pembelian_hasil">Rp 0</span></strong>
+                        </div>
+                    </div>
+
+                    <!-- 26.d Biaya Operasional -->
+                    <div class="form-group">
+                        <label><strong>26.d</strong> Biaya Operasional (air, listrik, gas, internet, pulsa, pemeliharaan, biaya angkutan, dll.) setahun terakhir?</label>
                         <div class="calc-row">
                             <input type="text" class="u_biaya_ops" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
                             <select class="u_biaya_ops_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
@@ -1103,22 +1132,9 @@
                         <div class="calc-result">1 Tahun: <span class="u_biaya_ops_hasil">Rp 0</span></div>
                     </div>
 
+                    <!-- 27.a Nilai Penjualan/Omzet -->
                     <div class="form-group">
-                        <label>Nilai Barang yang Diproduksi/Modal Belanja</label>
-                        <div class="calc-row">
-                            <input type="text" class="u_modal" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
-                            <select class="u_modal_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
-                                <option value="1">per Hari</option>
-                                <option value="7">per Minggu</option>
-                                <option value="30">per Bulan</option>
-                                <option value="365">per Tahun</option>
-                            </select>
-                        </div>
-                        <div class="calc-result">1 Tahun: <span class="u_modal_hasil">Rp 0</span></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Omset Usaha Bruto</label>
+                        <label><strong>27.a</strong> Nilai Penjualan Barang dan Jasa? (Omset) setahun terakhir?</label>
                         <div class="calc-row">
                             <input type="text" class="u_omset" placeholder="0" oninput="formatRupiah(this); hitungUsaha('${prefix}', ${id}); saveFormState()">
                             <select class="u_omset_periode" onchange="hitungUsaha('${prefix}', ${id}); saveFormState()">
@@ -1129,6 +1145,18 @@
                             </select>
                         </div>
                         <div class="calc-result">1 Tahun: <span class="u_omset_hasil">Rp 0</span></div>
+                    </div>
+
+                    <!-- 28.b Aset Selain Tanah & Bangunan -->
+                    <div class="form-group">
+                        <label><strong>28.b</strong> Nilai Aset Selain Tanah dan Bangunan pada 31 Desember 2025 (Peralatan/Barang Usaha)</label>
+                        <input type="text" class="u_aset_peralatan" placeholder="0" oninput="formatRupiah(this); saveFormState()">
+                    </div>
+
+                    <!-- 28.c Total Aset (Barang Dagangan/Sisa Stok) -->
+                    <div class="form-group">
+                        <label><strong>28.c</strong> Nilai Total Aset pada 31 Desember 2025 (Barang Dagangan/Sisa Stok Barang)</label>
+                        <input type="text" class="u_aset_stok" placeholder="0" oninput="formatRupiah(this); saveFormState()">
                     </div>
 
                     <div class="form-group">
@@ -1271,7 +1299,7 @@
         // ===== CALCULATIONS =====
         function hitungUsaha(prefix, id) {
             const card = document.getElementById(prefix + '_' + id);
-            const fields = ['biaya_produksi', 'biaya_ops', 'modal', 'omset'];
+            const fields = ['biaya_produksi', 'biaya_ops', 'omset'];
             fields.forEach(f => {
                 const input = card.querySelector('.u_' + f);
                 const periode = card.querySelector('.u_' + f + '_periode');
@@ -1281,12 +1309,38 @@
                     const p = parseInt(periode.value) || 30;
                     let total = 0;
                     if (p === 1) total = val * 365;           // per Hari x 365 hari
-                    else if (p === 7) total = val * 52;        // per Minggu (52 minggu dalam 1 tahun)
-                    else if (p === 30) total = val * 12;       // per Bulan (12 bulan dalam 1 tahun)
+                    else if (p === 7) total = val * 52;        // per Minggu x 52 minggu/tahun
+                    else if (p === 30) total = val * 12;       // per Bulan x 12 bulan/tahun
                     else if (p === 365) total = val;           // per Tahun
                     hasil.textContent = formatRupiahStr(Math.round(total));
                 }
             });
+        }
+
+        function hitungPembelianBarang(prefix, id) {
+            const card = document.getElementById(prefix + '_' + id);
+            const modalAwalInput = card.querySelector('.u_modal_awal');
+            const pembelianInput = card.querySelector('.u_pembelian_barang');
+            const periodeSelect = card.querySelector('.u_pembelian_barang_periode');
+            const hasilPembelian = card.querySelector('.u_pembelian_barang_hasil');
+            const hasilTotal = card.querySelector('.u_total_pembelian_hasil');
+
+            if (modalAwalInput && pembelianInput && periodeSelect) {
+                const modalAwal = parseRupiah(modalAwalInput.value);
+                const pembelian = parseRupiah(pembelianInput.value);
+                const p = parseInt(periodeSelect.value) || 30;
+
+                let pembelianSetahun = 0;
+                if (p === 1) pembelianSetahun = pembelian * 365;      // per Hari x 365 hari
+                else if (p === 7) pembelianSetahun = pembelian * 52;   // per Minggu x 52 minggu
+                else if (p === 30) pembelianSetahun = pembelian * 12;  // per Bulan x 12 bulan
+                else if (p === 365) pembelianSetahun = pembelian;      // per Tahun
+
+                const total = modalAwal + pembelianSetahun;
+
+                if (hasilPembelian) hasilPembelian.textContent = formatRupiahStr(Math.round(pembelianSetahun));
+                if (hasilTotal) hasilTotal.textContent = formatRupiahStr(Math.round(total));
+            }
         }
 
         function hitungGajiKaryawan(prefix, id) {
@@ -1428,20 +1482,32 @@
                 u.tahun = card.querySelector('.u_tahun')?.value || '';
                 u.jenis = card.querySelector('.u_jenis')?.value || '';
                 u.produk = card.querySelector('.u_produk')?.value || '';
+                // 26.b Biaya Produksi
                 u.biaya_produksi = card.querySelector('.u_biaya_produksi')?.value || '';
                 u.biaya_produksi_hasil = card.querySelector('.u_biaya_produksi_hasil')?.textContent || '';
+                // 26.c Biaya Pembelian Barang (Modal Awal + Pembelian)
+                u.modal_awal = card.querySelector('.u_modal_awal')?.value || '';
+                u.pembelian_barang = card.querySelector('.u_pembelian_barang')?.value || '';
+                u.pembelian_barang_hasil = card.querySelector('.u_pembelian_barang_hasil')?.textContent || '';
+                u.total_pembelian_hasil = card.querySelector('.u_total_pembelian_hasil')?.textContent || '';
+                // 26.d Biaya Operasional
                 u.biaya_ops = card.querySelector('.u_biaya_ops')?.value || '';
                 u.biaya_ops_hasil = card.querySelector('.u_biaya_ops_hasil')?.textContent || '';
-                u.modal = card.querySelector('.u_modal')?.value || '';
-                u.modal_hasil = card.querySelector('.u_modal_hasil')?.textContent || '';
+                // 27.a Omset
                 u.omset = card.querySelector('.u_omset')?.value || '';
                 u.omset_hasil = card.querySelector('.u_omset_hasil')?.textContent || '';
+                // 28.b Aset Peralatan
+                u.aset_peralatan = card.querySelector('.u_aset_peralatan')?.value || '';
+                // 28.c Aset Stok Barang
+                u.aset_stok = card.querySelector('.u_aset_stok')?.value || '';
+                // Karyawan
                 u.punya_karyawan = card.querySelector('input[type="radio"]:checked')?.value || '';
                 u.kar_jml = card.querySelector('.u_kar_jml')?.value || '';
                 u.kar_pria = card.querySelector('.u_kar_pria')?.value || '';
                 u.kar_wanita = card.querySelector('.u_kar_wanita')?.value || '';
                 u.kar_gaji = card.querySelector('.u_kar_gaji')?.value || '';
                 u.kar_gaji_hasil = card.querySelector('.u_kar_gaji_hasil')?.textContent || '';
+                // PJ
                 u.pj_nama = card.querySelector('.u_pj_nama')?.value || '';
                 u.pj_umur = card.querySelector('.u_pj_umur')?.value || '';
                 u.pj_nik = card.querySelector('.u_pj_nik')?.value || '';
@@ -1615,11 +1681,25 @@
             s += `Nama: ${u.nama || '-'}\n`;
             s += `Berdiri: ${u.tahun || '-'}\n`;
             s += `Jenis: ${u.jenis || '-'}\n`;
-            s += `Produk: ${u.produk || '-'}\n`;
-            s += `💰 Biaya Produksi: ${u.biaya_produksi || '-'} (${u.biaya_produksi_hasil || '-'} )\n`;
-            s += `💰 Biaya Operasional: ${u.biaya_ops || '-'} (${u.biaya_ops_hasil || '-'} )\n`;
-            s += `💰 Modal Belanja: ${u.modal || '-'} (${u.modal_hasil || '-'} )\n`;
-            s += `💰 Omset Bruto: ${u.omset || '-'} (${u.omset_hasil || '-'} )\n`;
+            s += `Produk: ${u.produk || '-'}\n\n`;
+            s += `*26.b BIAYA PRODUKSI:*\n`;
+            s += `  Input: ${u.biaya_produksi || '-'}\n`;
+            s += `  1 Tahun: ${u.biaya_produksi_hasil || '-'}\n\n`;
+            s += `*26.c BIAYA PEMBELIAN BARANG:*\n`;
+            s += `  Modal Awal: ${u.modal_awal || '-'}\n`;
+            s += `  Pembelian: ${u.pembelian_barang || '-'}\n`;
+            s += `  Pembelian Setahun: ${u.pembelian_barang_hasil || '-'}\n`;
+            s += `  TOTAL (Modal + Pembelian): ${u.total_pembelian_hasil || '-'}\n\n`;
+            s += `*26.d BIAYA OPERASIONAL:*\n`;
+            s += `  Input: ${u.biaya_ops || '-'}\n`;
+            s += `  1 Tahun: ${u.biaya_ops_hasil || '-'}\n\n`;
+            s += `*27.a OMSET/PENJUALAN:*\n`;
+            s += `  Input: ${u.omset || '-'}\n`;
+            s += `  1 Tahun: ${u.omset_hasil || '-'}\n\n`;
+            s += `*28.b ASET PERALATAN (Non Tanah/Bangunan):*\n`;
+            s += `  ${u.aset_peralatan || '-'}\n\n`;
+            s += `*28.c ASET STOK BARANG DAGANGAN:*\n`;
+            s += `  ${u.aset_stok || '-'}\n\n`;
             s += `👥 Karyawan: ${u.punya_karyawan || '-'}\n`;
             if (u.punya_karyawan === 'Ya') {
                 s += `  Total: ${u.kar_jml || '-'} (Pria: ${u.kar_pria || '-'}, Wanita: ${u.kar_wanita || '-'})\n`;
@@ -1629,7 +1709,7 @@
             s += `🆔 NIK PJ: ${u.pj_nik || '-'}\n`;
             s += `📋 NIB: ${u.nib || 'Tidak'}\n`;
             s += `📍 Alamat: ${u.alamat || '-'}\n`;
-            s += `🏠 Aset Tanah: ${u.aset_tanah || '-'}\n`;
+            s += `🏠 Aset Tanah/Bangunan: ${u.aset_tanah || '-'}\n`;
             s += `🏭 Aset Lain: ${u.aset_lain || '-'}\n`;
             s += `📱 HP: ${u.hp || '-'}\n`;
             return s;
